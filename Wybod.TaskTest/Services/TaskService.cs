@@ -6,9 +6,9 @@ namespace Wybod.TaskTest.Services;
 
 public class TaskService
 {
-    private readonly TaskRepository _repository;
+    private readonly ITaskRepository _repository;
 
-    public TaskService(TaskRepository repository)
+    public TaskService(ITaskRepository repository)
     {
         _repository = repository;
     }
