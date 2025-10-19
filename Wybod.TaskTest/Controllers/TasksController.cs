@@ -1,7 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using Wybod.TaskTest.Data.Models;
-using Wybod.TaskTest.Data.Repositories;
-
 namespace Wybod.TaskTest.Controllers;
 
 [ApiController]
