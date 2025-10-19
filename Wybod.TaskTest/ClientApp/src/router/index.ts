@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import DefaultLayout from '@/layouts/DefaultLayout.vue'
+import DefaultLayout from '@/components/layouts/DefaultLayout.vue'
 import TasksView from '@/views/TasksView.vue'
 
 const router = createRouter({
