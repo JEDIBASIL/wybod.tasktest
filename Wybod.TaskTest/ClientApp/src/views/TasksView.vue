@@ -14,40 +14,18 @@
       </div>
 
       <div v-else class="space-y-4">
-        <Card v-for="task in tasks" :key="task.id">
-          <CardHeader>
-            <div class="flex justify-between items-center">
-              <CardTitle>{{ task.title }}</CardTitle>
-              <span
-                :class="[
-                  'px-3 py-1 rounded-full text-xs font-bold',
-                  task.isCompleted ? 'bg-green-500 text-white' : 'bg-amber-500 text-white'
-                ]"
-              >
-                {{ task.isCompleted ? 'Completed' : 'Pending' }}
-              </span>
-            </div>
-            <CardDescription>{{ task.description }}</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div class="flex gap-5 text-xs text-gray-500">
-              <small>Created: {{ formatDate(task.createdAt) }}</small>
-              <small v-if="task.completedAt">Completed: {{ formatDate(task.completedAt) }}</small>
-            </div>
-          </CardContent>
-        </Card>
+          <ListCard v-for="task in tasks" :key="task.id" :id="task.id" :title="task.title"
+            :description="task.description" :is-completed="task.isCompleted" :created-at="task.createdAt"
+            :completed-at="task.completedAt" />
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import ListCard from '@/components/ui/ListCard.vue'
+
 import { ref, onMounted } from 'vue'
-import Card from '@/components/ui/Card.vue'
-import CardHeader from '@/components/ui/CardHeader.vue'
-import CardTitle from '@/components/ui/CardTitle.vue'
-import CardDescription from '@/components/ui/CardDescription.vue'
-import CardContent from '@/components/ui/CardContent.vue'
 
 interface TaskItem {
   id: string
@@ -69,6 +47,7 @@ const fetchTasks = async () => {
       throw new Error('Failed to fetch tasks')
     }
     tasks.value = await response.json()
+    console.log(tasks.value.length)
   } catch (err) {
     error.value = (err as Error).message
   } finally {
