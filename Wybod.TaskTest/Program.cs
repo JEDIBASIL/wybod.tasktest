@@ -5,7 +5,7 @@ using Wybod.TaskTest.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
-builder.Services.AddScoped<IDataContext, DataContext>();
+builder.Services.AddSingleton<IDataContext, DataContext>();
 builder.Services.AddScoped<ITaskRepository, TaskRepository>();
 builder.Services.AddScoped<TaskService>();
 var app = builder.Build();
