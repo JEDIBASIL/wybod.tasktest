@@ -27,7 +27,6 @@ export interface PaginatedResult<T> {
 const BASE_URL = '/api'
 
 export const taskApi = {
-  // Fetch all tasks (with pagination - DEFAULT)
   async fetchTasks(pageNumber: number = 1, pageSize: number = 10): Promise<PaginatedResult<TaskItem>> {
     try {
       const response = await fetch(
@@ -42,7 +41,6 @@ export const taskApi = {
     }
   },
 
-  // Fetch filtered tasks with pagination
   async fetchFilteredTasks(
     pageNumber: number = 1,
     pageSize: number = 10,
@@ -76,7 +74,6 @@ export const taskApi = {
     }
   },
 
-  // Search tasks
   async searchTasks(query: string): Promise<TaskItem[]> {
     try {
       if (!query.trim()) {
@@ -93,7 +90,6 @@ export const taskApi = {
     }
   },
 
-  // Get single task by ID
   async getTaskById(id: string): Promise<TaskItem> {
     try {
       const response = await fetch(`${BASE_URL}/tasks/${id}`)
@@ -106,7 +102,6 @@ export const taskApi = {
     }
   },
 
-  // Create a new task
   async createTask(payload: CreateTaskPayload): Promise<TaskItem> {
     try {
       if (!payload.title.trim()) {
@@ -130,7 +125,6 @@ export const taskApi = {
     }
   },
 
-  // Update a task - sends all fields
   async updateTask(id: string, payload: TaskItem): Promise<TaskItem> {
     try {
       const response = await fetch(`${BASE_URL}/tasks/${id}`, {
@@ -150,7 +144,7 @@ export const taskApi = {
     }
   },
 
-  // Delete a task
+
   async deleteTask(id: string): Promise<void> {
     try {
       const response = await fetch(`${BASE_URL}/tasks/${id}`, {
@@ -165,7 +159,6 @@ export const taskApi = {
     }
   },
 
-  // Delete all completed tasks
   async deleteCompletedTasks(): Promise<void> {
     try {
       const response = await fetch(`${BASE_URL}/tasks/completed`, {
@@ -180,20 +173,16 @@ export const taskApi = {
     }
   },
 
-  // Toggle task completion status - sends all fields
   async toggleTaskCompletion(id: string, isCompleted: boolean): Promise<TaskItem> {
     try {
-      // Fetch current task to get all fields
       const currentTask = await this.getTaskById(id)
 
-      // Create updated payload with all fields
       const updatedPayload: TaskItem = {
         ...currentTask,
         isCompleted,
         completedAt: isCompleted ? new Date().toISOString() : undefined,
       }
 
-      // Send complete task object
       return await this.updateTask(id, updatedPayload)
     } catch (error) {
       throw error
