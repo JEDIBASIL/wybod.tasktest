@@ -189,3 +189,7 @@ export const taskApi = {
     }
   },
 }
+
+export function fetchFilteredTasks(fetchFilteredTasks: any): any {
+    throw new Error('Function not implemented.')
+}
